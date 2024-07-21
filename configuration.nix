@@ -7,7 +7,7 @@
 {
   imports =
     [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
+      ./hardware
     ];
 
 
@@ -15,13 +15,14 @@
   # $ nix search wget
    environment.systemPackages = with pkgs; [
      where-is-my-sddm-theme
+     libcxx
      waybar
      unzip
      gzip
      git
      neovim
      alacritty
-     libclang
+     clang
      cargo
      eww
      tokei
@@ -30,6 +31,8 @@
      neofetch
      firefox
      vesktop
+     gnumake
+     cmake
    ];
 
    
