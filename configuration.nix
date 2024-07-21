@@ -110,6 +110,8 @@
      pulse.enable = true;
    };
 
+  programs.fish.enable = true;
+
   # Enable touchpad support (enabled default in most desktopManager).
   # services.libinput.enable = true;
 
@@ -122,6 +124,12 @@
        tree
      ];
    };
+
+   fonts.packages = with pkgs; [
+     (nerdfonts.override { fonts = [ "CascadiaMono" "CascadiaCode" ]; })
+   ];
+   fonts.fontconfig.enable = true;
+   fonts.fontconfig.defaultFonts.monospace = [ "CascadiaCode" ];
 
 
   # Some programs need SUID wrappers, can be configured further or are
