@@ -23,22 +23,12 @@
      alacritty
      libclang
      cargo
-     
-     #rice
      eww
-
-     #tools
      tokei
      ripgrep
      wev
-
-     #fun stuff
      neofetch
-
-     #everyday
      firefox
-     #spotify #unfree
-     #discord #unfree
      vesktop
    ];
 
