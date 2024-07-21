@@ -109,9 +109,7 @@
    users.users.wlem = {
      isNormalUser = true;
      extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
-     packages = with pkgs; [
-       firefox
-     ];
+     #packages = with pkgs; [];
    };
 
    fonts.packages = with pkgs; [
