@@ -14,7 +14,6 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
    environment.systemPackages = with pkgs; [
-     where-is-my-sddm-theme
      libcxx
      waybar
      unzip
@@ -71,10 +70,9 @@
    };
 
   # Enable the X11 windowing system.
-   #services.displayManager.enable = true;
-   #services.displayManager.sddm.enable = true;
-   #services.displayManager.sddm.theme = "where_is_my_sddm_theme";
-   #services.displayManager.sddm.wayland.enable = true;
+   services.xserver.enable = true;
+   services.xserver.displayManager.sddm.enable = true;
+   services.xserver.displayManager.sddm.wayland.enable = true;
 
   programs.hyprland = {
     enable = true;
@@ -89,7 +87,7 @@
   };
 
   # Configure keymap in X11
-   services.xserver.xkb.layout = "sv";
+   services.xserver.xkb.layout = "se";
   # services.xserver.xkb.options = "eurosign:e,caps:escape";
 
   # Enable CUPS to print documents.
@@ -104,7 +102,7 @@
    };
 
   programs.fish.enable = true;
-
+  users.defaultUserShell = pkgs.fish;
   # Enable touchpad support (enabled default in most desktopManager).
   # services.libinput.enable = true;
 
