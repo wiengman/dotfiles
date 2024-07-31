@@ -33,6 +33,8 @@
      gnumake
      cmake
      sddm-chili-theme
+     starship
+     zellij
    ];
 
    
