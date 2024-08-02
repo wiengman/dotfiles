@@ -38,7 +38,11 @@
      jack2
    ];
 
-   
+  nix.settings.auto-optimise-store = true;
+  nix.gc.automatic = true;
+  nix.gc.dates = "weekly"; 
+  nix.gc.options = "--delete-older-than +10"
+
   # Use the systemd-boot EFI boot loader.
   boot.loader = {
     efi = {
