@@ -35,6 +35,7 @@
      sddm-chili-theme
      starship
      zellij
+     jack2
    ];
 
    
@@ -97,12 +98,35 @@
   # Enable CUPS to print documents.
   # services.printing.enable = true;
 
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.powerOnBoot = true;
+  hardware.bluetooth.package = pkgs.bluez;
+  hardware.bluetooth.settings.general = {
+    enable = "Source,Sink,Media,Socket";
+  };
+
+  services.blueman.enable = true;
+
+  security.rtkit.enable = true;
   #Enable sound.
    services.pipewire = {
      enable = true;
      alsa.enable = true;
      alsa.support32Bit = true;
      pulse.enable = true;
+     wireplumber.enable = true;
+     jack.enable = true;
+   };
+
+  systemd.user.services.pipewire-pulse.path = [ pkgs.pulseaudio ];
+
+   services.pipewire.wireplumber.extraConfig.bluetoothEnhancements = {
+    "monitor.bluez.properties" = {
+      "bluez5.enable-sbc-xq" = true;
+      "bluez5.enable-msbc" = true;
+      "bluez5.enable-hw-volume" = true;
+      "bluez5.roles" =  [ "hsp_hs" "hsp_ag" "hfp_hf" "hfp_ag" ];
+    };
    };
 
   programs.fish.enable = true;
@@ -125,9 +149,6 @@
 
 
   
-  hardware.bluetooth.enable = true;
-  hardware.bluetooth.powerOnBoot = true;
-  services.blueman.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
