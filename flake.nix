@@ -15,6 +15,10 @@
 	  system = "x86_64-linux";
 	  modules = [ ./configuration.nix ];
       };
+	glacier = lib.nixosSystem {
+	  system = "x86_64-linux";
+	  modules = [ ./configuration.nix ];
+      };
     };
   };
 }

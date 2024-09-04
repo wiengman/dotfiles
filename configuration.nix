@@ -10,7 +10,7 @@
       ./hardware
     ];
       
-  /* # nvidiastuff
+  # nvidiastuff
   hardware.opengl = {
     enable = true;
   };
@@ -45,15 +45,23 @@
     nvidiaSettings = true;
 
     # Optionally, you may need to select the appropriate driver version for your specific GPU.
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
-  }; */
+    package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
+  version = "555.58";
+  sha256_64bit = "sha256-bXvcXkg2kQZuCNKRZM5QoTaTjF4l2TtrsKUvyicj5ew=";
+  sha256_aarch64 = lib.fakeSha256;
+  openSha256 = lib.fakeSha256;
+  settingsSha256 = "sha256-vWnrXlBCb3K5uVkDFmJDVq51wrCoqgPF03lSjZOuU8M=";
+  persistencedSha256 = lib.fakeSha256;
+};
+  }; 
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
    environment.systemPackages = with pkgs; [
      libcxx
-     waybar
+     linuxKernel.packages.linux_zen.v4l2loopback
      unzip
+     ironbar
      gzip
      git
      neovim
@@ -72,13 +80,27 @@
      sddm-chili-theme
      starship
      zellij
+     kitty
      jack2
+     obs-studio
+     wofi
+     dolphin
+     spotify
+     mangohud
+     protonup
    ];
 
+  environment.sessionVariables = {
+    STEAM_EXTRA_COMPAT_TOOLS_PATHS = 
+      "/home/wlem/.steam/root/compatibilitytools.d";
+  };
+
+  programs.gamemode.enable = true;
+  nixpkgs.config.allowUnfree = true;
   nix.settings.auto-optimise-store = true;
   nix.gc.automatic = true;
   nix.gc.dates = "weekly"; 
-  nix.gc.options = "--delete-older-than +10"
+  nix.gc.options = "--delete-older-than +10";
 
   # Use the systemd-boot EFI boot loader.
   boot.loader = {
@@ -92,7 +114,7 @@
   };
 
 
-  networking.hostName = "aurora"; # Define your hostname.
+  networking.hostName = "glacier"; # Define your hostname.
   networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
 
   # Set your time zone.
@@ -124,6 +146,19 @@
     enable = true;
     xwayland.enable = true;
   };
+
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true;
+    dedicatedServer.openFirewall = true;
+    localNetworkGameTransfers.openFirewall = true;
+  };
+
+  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+    "steam"
+    "steam-original"
+    "steam-run"
+  ];
 
   services.logind = {
 	lidSwitch = "ignore"; 
