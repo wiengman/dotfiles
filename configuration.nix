@@ -46,12 +46,19 @@
 
     # Optionally, you may need to select the appropriate driver version for your specific GPU.
     package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
-  version = "555.58";
-  sha256_64bit = "sha256-bXvcXkg2kQZuCNKRZM5QoTaTjF4l2TtrsKUvyicj5ew=";
-  sha256_aarch64 = lib.fakeSha256;
-  openSha256 = lib.fakeSha256;
-  settingsSha256 = "sha256-vWnrXlBCb3K5uVkDFmJDVq51wrCoqgPF03lSjZOuU8M=";
-  persistencedSha256 = lib.fakeSha256;
+    version = "555.58";
+    sha256_64bit = "sha256-bXvcXkg2kQZuCNKRZM5QoTaTjF4l2TtrsKUvyicj5ew=";
+    sha256_aarch64 = lib.fakeSha256;
+    openSha256 = lib.fakeSha256;
+    settingsSha256 = "sha256-vWnrXlBCb3K5uVkDFmJDVq51wrCoqgPF03lSjZOuU8M=";
+    persistencedSha256 = lib.fakeSha256;
+
+    # version = "560.31.02";
+    # sha256_64bit = "sha256-0cwgejoFsefl2M6jdWZC+CKc58CqOXDjSi4saVPNKY0=";
+    # sha256_aarch64 = "sha256-m7da+/Uc2+BOYj6mGON75h03hKlIWItHORc5+UvXBQc=";
+    # openSha256 = "sha256-X5UzbIkILvo0QZlsTl9PisosgPj/XRmuuMH+cDohdZQ=";
+    # settingsSha256 = "sha256-A3SzGAW4vR2uxT1Cv+Pn+Sbm9lLF5a/DGzlnPhxVvmE=";
+    # persistencedSha256 = "sha256-BDtdpH5f9/PutG3Pv9G4ekqHafPm3xgDYdTcQumyMtg=";
 };
   }; 
 
@@ -59,6 +66,7 @@
   # $ nix search wget
    environment.systemPackages = with pkgs; [
      libcxx
+    parted
      linuxKernel.packages.linux_zen.v4l2loopback
      unzip
      ironbar
@@ -88,7 +96,14 @@
      spotify
      mangohud
      protonup
+     python3
    ];
+
+  xdg.portal = {
+    enable = true;
+    extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
+    config.common.default = [ "gtk"];
+  };
 
   environment.sessionVariables = {
     STEAM_EXTRA_COMPAT_TOOLS_PATHS = 
@@ -96,7 +111,13 @@
   };
 
   programs.gamemode.enable = true;
+
+
+
   nixpkgs.config.allowUnfree = true;
+
+
+  # Nixos garbage collection
   nix.settings.auto-optimise-store = true;
   nix.gc.automatic = true;
   nix.gc.dates = "weekly"; 
@@ -149,6 +170,11 @@
 
   programs.steam = {
     enable = true;
+    package = pkgs.steam.override {
+      extraPkgs = (pkgs: with pkgs; [
+        gamemode
+      ]);
+    };
     remotePlay.openFirewall = true;
     dedicatedServer.openFirewall = true;
     localNetworkGameTransfers.openFirewall = true;
