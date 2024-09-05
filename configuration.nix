@@ -66,6 +66,7 @@
   # $ nix search wget
    environment.systemPackages = with pkgs; [
     htop
+    nwg-look
      libcxx
     parted
      linuxKernel.packages.linux_zen.v4l2loopback
