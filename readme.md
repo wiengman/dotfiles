@@ -1,3 +1,3 @@
-# NixOs configuration files
+# Wlems Arch + Hyprland configuration files
 
 WIP
