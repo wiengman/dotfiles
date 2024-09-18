@@ -1,0 +1,25 @@
+[user]
+	email = william.engman@hotmail.com
+  name = William Engman
+  username = wiengman
+
+[core]
+  editor = "nvim"
+
+[fetch]
+  prune = true
+
+[pull]
+  rebase = true
+
+[rebase]
+  autostash = true
+
+[init]
+  defaultBranch = main
+
+[status]
+  short = true
+
+[merge]
+  conflictstyle = zdiff3
