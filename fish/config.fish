@@ -4,6 +4,8 @@ end
 
 
 # Add path
-set -U fish_user_paths ~/.cargo/bin
-set -U fish_user_paths ~/dev/eww/target/release/
-set -U fish_user_paths ~/bin
+set -U fish_user_paths ~/dev/eww/target/release/ ~/bin ~/.cargo/bin
+set -U EDITOR nvim
+
+
+starship init fish | source

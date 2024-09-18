@@ -5,3 +5,37 @@ normal = { family = "CaskaydiaCoveNerdFontMono", style = "Regular" }
 opacity = 0.8
 blur = true
 decorations = "None"
+
+# Default colors
+[colors.primary]
+background = "#181818"
+foreground = "#f5f8eb"
+
+[colors.cursor]
+# cursor = "" 
+# text = ""
+
+[colors.normal]
+black = "#181818"
+red = "#D05357"
+green = "#a8d43d"
+yellow = "#F2BE71"
+blue = "#5EA6BB"
+magenta = "#e588ec"
+cyan = "#8ae0d2"
+white = "#f5f8eb"
+
+[colors.bright]
+black = "#6B6B6B"
+red = "#d06568"
+green = "#b4d465"
+yellow = "#FECA88"
+blue = "#82B8C8"
+magenta = "#cd93d2"
+cyan = "#96c4bc"
+white = "#F8F8F8"
+
+[colors.selection]
+# background = ""
+# text = ""
+

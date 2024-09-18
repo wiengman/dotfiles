@@ -1,0 +1,23 @@
+add_newline = false
+format="""
+$username\
+@\
+$hostname\
+$directory\
+$git_branch\
+$git_state\
+$status\
+$character"""
+
+right_format = "$all"
+
+[username]
+format = "[$user](fg:red)"
+show_always = true
+
+[hostname]
+format = "[$hostname](yellow) "
+ssh_only = false
+
+[git_branch]
+format = "[$symbol$branch]($style) "
