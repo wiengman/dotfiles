@@ -7,7 +7,7 @@
 .bar {
   background-color: #3a3a3a;
   color: #b0b4bc;
-  padding: 10px;
+  padding: 0px 10px;
 }
 
 // Styles on classes (see eww.yuck for more information)
@@ -42,3 +42,12 @@
   color: #D35D6E;
 }
 
+.music button{
+  padding: 0px 8px;
+  margin: 2px;
+}
+
+
+.music button:hover {
+  background-color: #2A2A2A;
+}
