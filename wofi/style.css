@@ -1,0 +1,40 @@
+* {
+  font-family: "CaskaydiaCoveNerdFontMono";
+  color: #F5F8EB;
+  background: transparent;
+}
+
+#window {
+  background:#2C2622;
+  margin: auto;
+  padding: 10px;
+  border-radius: 20px;
+  border: 3px solid #F2BE71;
+}
+
+#input {
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 15px;
+}
+
+#outer-box {
+  padding: 20px;
+}
+
+#img {
+  margin-right: 6px;
+}
+
+#entry {
+  padding: 10px;
+  border-radius: 15px;
+}
+
+#entry:selected {
+  background-color: #659CAB;
+}
+
+#text {
+  margin: 2px;
+}
