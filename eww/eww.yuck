@@ -1,5 +1,5 @@
 (defwidget bar []
-  (centerbox :orientation "h"
+(centerbox :orientation "h"
     (left)
     (music)
     (sidestuff)))
@@ -7,7 +7,7 @@
 (defwidget sidestuff []
   (box :class "sidestuff" :orientation "h" :space-evenly false :halign "end"
     (metric :label "Volume:"
-            :value volume
+            :value get_volume
             :onchange "pactl set-sink-volume @DEFAULT_SINK@ {}%")
     (metric :label "RAM:"
             :value {EWW_RAM.used_mem_perc}
@@ -57,8 +57,10 @@
 (deflisten music_state :initial ""
   "playerctl status --follow metadata")
 
-(defpoll volume :interval "1s"
-  "pactl get-sink-volume @DEFAULT_SINK@ | rg -e '(\d+)%' -o | head -n 1 | rg -e '\d+' -o")
+(defpoll get_volume :interval "1s"
+  "./get_volume.sh"
+  )
+
 
 (defpoll time :interval "10s"
   "date '+%H:%M %b %d, %Y'")
