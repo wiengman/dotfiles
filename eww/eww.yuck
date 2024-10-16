@@ -9,11 +9,11 @@
     (metric :label "Volume:"
             :value get_volume
             :onchange "pactl set-sink-volume @DEFAULT_SINK@ {}%")
-    (metric :label "RAM:"
+    (metric :label "Memory:"
             :value {EWW_RAM.used_mem_perc}
             :onchange "")
-    (metric :label "Disk:"
-            :value {round((1 - (EWW_DISK["/"].free / EWW_DISK["/"].total)) * 100, 0)}
+    (metric :label "Network:"
+            :value {round(EWW_NET.enp4s0.NET_DOWN/(2500*8), 0)}
             :onchange "")
     time))
 
