@@ -58,9 +58,7 @@
   "playerctl status --follow metadata")
 
 (defpoll get_volume :interval "1s"
-  "./get_volume.sh"
-  )
-
+  "./get_volume.sh" )
 
 (defpoll time :interval "10s"
   "date '+%H:%M %b %d, %Y'")
