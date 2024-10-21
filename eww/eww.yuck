@@ -1,43 +1,83 @@
+;; Variables
+(defvar eww "eww -c $HOME/.config/eww")
+(defvar reveal_power false)
+
+;; Listening
+(defpoll music :interval "1s" "playerctl --player=spotify metadata --format '{{ artist }} - {{ title }}' || true")
+(defpoll music_state :interval "1s" "playerctl --player=spotify status metadata")
+
+;; Polling
+(defpoll get_volume :interval "1s" "./get_volume.sh" )
+(defpoll time :interval "10s" "date '+%H:%M %b %d, %Y'")
+
+;; Widgets
 (defwidget bar []
 (centerbox :orientation "h"
     (left)
     (music)
     (sidestuff)))
 
+;; Powermenu Widgets
+(defwidget power []
+	(eventbox	:onhover "${eww} update reveal_power=true"	
+            :onhoverlost "${eww} update reveal_power=false"
+
+    (box :orientation "h"					
+         :space-evenly "false" 	 
+         :hexpand "false" 	
+         :class "powermenu"
+
+    (button :class "power-symbol" "⏻ ")
+
+      (revealer	:transition "slideright"				
+                :reveal reveal_power
+                :duration "300ms"
+
+      	(eventbox	:cursor "pointer"
+
+          (box :orientation "h"
+             :space-evenly "false"
+
+            (button :class "power-button"
+                  :onclick "shutdown -h now" "Shutdown")
+
+            (button :class "power-button"
+                  :tooltip "Reboot"
+                  :onclick "reboot" "Reboot")))))))
+
 (defwidget sidestuff []
   (box :class "sidestuff" :orientation "h" :space-evenly false :halign "end"
     (metric :label "Volume:"
             :value get_volume
             :onchange "pactl set-sink-volume @DEFAULT_SINK@ {}%")
-    (metric :label "Memory:"
+    (metric :label "Memory: "
             :value {EWW_RAM.used_mem_perc}
+            :tooltip "${round(EWW_RAM.used_mem/1000000000, 1)}/${round(EWW_RAM.total_mem/(1000000000), 1)}"
             :onchange "")
     (metric :label "Network:"
-            :value {round(EWW_NET.enp4s0.NET_DOWN/(2500*8), 0)}
+            :value {round(EWW_NET.enp4s0.NET_DOWN*8/250, 0)}
             :onchange "")
     time))
 
 (defwidget left []
   (box :class "workspaces"
        :orientation "h"
-       :space-evenly true
-       :halign "start"
+       :space-evenly false
+  :halign "start"
        :spacing 10
-    (button :onclick "firefox" "Firefox")
-    (button :onclick "alacritty &" "Alacritty")
-    (button :onclick "spotify" "Spotify")
-    (button :onclick "discord" "Discord")
-    (button :onclick "steam" "Steam")
+    (power)
     ))
 
 (defwidget music []
-  (box :class "music"
-       :orientation "h"
-       :space-evenly false
-       :halign "center"
-    (button :width 40 :height 40 :onclick "playerctl previous" "◀")
-    (button :width 40 :height 40 :onclick "playerctl play-pause" {music != "" ? (music_state =~ "Paused" ? "${music}" : "🎵 ${music} 🎵") : ""})
-    (button :width 40 :height 40 :onclick "playerctl next" "▶")))
+  (eventbox
+    :cursor "pointer"
+    (box :class "music"
+      :orientation "h"
+      :space-evenly false
+      :halign "center"
+      (button :width 32 :onclick "playerctl previous --player=spotify" "◀")
+      (button :width 32 :onclick "playerctl play-pause --player=spotify" {music != "" ? (music_state =~ "Paused" ? "${music}" : "🎵 ${music} 🎵") : ""})
+      (button :width 32 :onclick "playerctl next --player=spotify" "▶"))))
 
 
 (defwidget metric [label value onchange]
@@ -51,37 +91,12 @@
            :value value
            :onchange onchange)))
 
-(deflisten music :initial ""
-  "playerctl --follow metadata --format '{{ artist }} - {{ title }}' || true")
-
-(deflisten music_state :initial ""
-  "playerctl status --follow metadata")
-
-(defpoll get_volume :interval "1s"
-  "./get_volume.sh" )
-
-(defpoll time :interval "10s"
-  "date '+%H:%M %b %d, %Y'")
-
 (defwindow bar
-  :monitor 1
   :windowtype "normal"
   :exclusive true
   :geometry (geometry :x "0%"
-                      :y "5px"
-                      :width "99%"
-                      :height "40px"
+                      :y "0%"
+                      :width "100%"
+                      :height "32px"
                       :anchor "top center")
-  :reserve (struts :side "top" :distance "4%") 
-  (bar))
-(defwindow bar2
-  :monitor 0
-  :windowtype "normal"
-  :exclusive true
-  :geometry (geometry :x "0%"
-                      :y "5px"
-                      :width "99%"
-                      :height "40px"
-                      :anchor "top center")
-  :reserve (struts :side "top" :distance "4%") 
   (bar))

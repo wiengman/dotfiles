@@ -3,37 +3,53 @@
   font-family: "CaskadiyaCodeFontMono";
 }
 
+$background: rgba(24, 24, 24, 0.5);
+$foreground: #f5f8eb;
+
+$black:   #181818;
+$red:     #D05357;
+$green:   #A8D43D;
+$yellow:  #F2BE71;
+$blue:    #5EA6BB;
+$magenta: #E588EC;
+$cyan:    #8AE0D2;
+$white:   $foreground;
+
 // Global Styles
 .bar {
-  background-color: #3a3a3a;
-  color: #b0b4bc;
+  background: $background;
+  color: $foreground;
   padding: 0px 10px;
+  font-weight: bold;
+  font-size: 16px;
 }
 
-.bar2 {
-  background-color: #3a3a3a;
-  color: #b0b4bc;
-  padding: 0px 10px;
+// Music (Middle)
+.music button{
+  padding: 0px 8px;
 }
-// Styles on classes (see eww.yuck for more information)
 
+.music button:hover {
+  color: $yellow;
+}
+
+// Metrics (Left)
 .sidestuff slider {
   all: unset;
-  color: #ffd5cd;
+  color: $yellow;
 }
 
 .metric scale trough highlight {
   all: unset;
-  background-color: #D35D6E;
-  color: #000000;
+  background-color: $yellow;
   border-radius: 10px;
 }
 
 .metric scale trough {
   all: unset;
-  background-color: #4e4e4e;
+  background-color: $black;
   border-radius: 50px;
-  min-height: 3px;
+  min-height: 10px;
   min-width: 50px;
   margin-left: 10px;
   margin-right: 20px;
@@ -43,16 +59,14 @@
   font-size: large;
 }
 
-.workspaces button:hover {
-  color: #D35D6E;
+.power-symbol {
+  font-size: 24px;
 }
 
-.music button{
-  padding: 0px 8px;
-  margin: 2px;
+.power-symbol:hover {
+  color: $red;
 }
 
-
-.music button:hover {
-  background-color: #2A2A2A;
+.power-button:hover {
+  color: $magenta;
 }
