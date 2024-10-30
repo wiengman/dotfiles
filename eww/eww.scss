@@ -1,8 +1,3 @@
-* {
-  all: unset; // Unsets everything so you can style everything from scratch
-  font-family: "CaskadiyaCodeFontMono";
-}
-
 $background: rgba(24, 24, 24, 0.5);
 $foreground: #f5f8eb;
 
@@ -14,6 +9,13 @@ $blue:    #5EA6BB;
 $magenta: #E588EC;
 $cyan:    #8AE0D2;
 $white:   $foreground;
+
+* {
+  all: unset; // Unsets everything so you can style everything from scratch
+  font-family: "CaskadiyaCodeFontMono";
+  color: $white;
+}
+
 
 // Global Styles
 .bar {

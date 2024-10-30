@@ -8,6 +8,7 @@
 
 ;; Polling
 (defpoll get_volume :interval "1s" "./get_volume.sh" )
+(defpoll get_volume_spotify :interval "1s" "./get_volume_spotify.sh" )
 (defpoll time :interval "10s" "date '+%H:%M %b %d, %Y'")
 
 ;; Widgets
@@ -50,6 +51,9 @@
     (metric :label "Volume:"
             :value get_volume
             :onchange "pactl set-sink-volume @DEFAULT_SINK@ {}%")
+    (metric :label "Spotify:"
+            :value get_volume_spotify
+            :onchange "./set_volume_spotify.sh {}")
     (metric :label "Memory: "
             :value {EWW_RAM.used_mem_perc}
             :tooltip "${round(EWW_RAM.used_mem/1000000000, 1)}/${round(EWW_RAM.total_mem/(1000000000), 1)}"
@@ -63,7 +67,7 @@
   (box :class "workspaces"
        :orientation "h"
        :space-evenly false
-  :halign "start"
+        :halign "start"
        :spacing 10
     (power)
     ))
@@ -78,7 +82,6 @@
       (button :width 32 :onclick "playerctl previous --player=spotify" "◀")
       (button :width 32 :onclick "playerctl play-pause --player=spotify" {music != "" ? (music_state =~ "Paused" ? "${music}" : "🎵 ${music} 🎵") : ""})
       (button :width 32 :onclick "playerctl next --player=spotify" "▶"))))
-
 
 (defwidget metric [label value onchange]
   (box :orientation "h"
